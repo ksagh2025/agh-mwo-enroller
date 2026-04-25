@@ -4,6 +4,7 @@ import java.util.Collection;
 import com.company.enroller.model.Meeting;
 import com.company.enroller.model.Participant;
 import com.company.enroller.persistence.MeetingService;
+import com.company.enroller.persistence.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ public class MeetingRestController {
 
     @Autowired
     MeetingService meetingService;
+
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<?> getMeetings() {
@@ -56,6 +58,16 @@ public class MeetingRestController {
         if (foundMeeting == null) {
             return new ResponseEntity("Doesnt Exists",HttpStatus.NOT_FOUND);}
         meetingService.update(meeting);
+        return new ResponseEntity<>(foundMeeting,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/participants" , method = RequestMethod.POST)
+    public ResponseEntity<?> addParticipant(@PathVariable("id") Long id,@RequestBody Participant participant) {
+        Meeting foundMeeting = meetingService.findById(id);
+        if (foundMeeting == null) {
+            return new ResponseEntity("Doesnt Exists",HttpStatus.NOT_FOUND);}
+        foundMeeting.addParticipant(participant);
+        meetingService.update(foundMeeting);
         return new ResponseEntity<>(foundMeeting,HttpStatus.OK);
     }
 }
