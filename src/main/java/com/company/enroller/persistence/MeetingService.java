@@ -18,11 +18,24 @@ public class MeetingService {
 		connector = DatabaseConnector.getInstance();
 	}
 
-	public Collection<Meeting> getAll() {
-		String hql = "FROM Meeting";
-		Query query = connector.getSession().createQuery(hql);
-		return query.list();
-	}
+//	public Collection<Meeting> getAll() {
+//		String hql = "FROM Meeting";
+//		Query query = connector.getSession().createQuery(hql);
+//		return query.list();
+//	}
+
+    public Collection<Meeting> getAll(String searchTitle, String searchDescription,  String sortBy, String sortOrder) {
+        String hql = "FROM Meeting WHERE title like :searchTitle AND description like :searchDescription";
+
+        if("id".equals(sortBy) || "date".equals(sortBy)) {
+            hql += " ORDER BY "+ sortBy;
+            if("DESC".equals(sortOrder)) {hql += " DESC";} else {hql += " ASC";}
+        }
+        Query query = connector.getSession().createQuery(hql);
+        query.setParameter("searchTitle", "%" + searchTitle + "%");
+        query.setParameter("searchDescription", "%" + searchDescription + "%");
+        return query.list();
+    }
 
     public Meeting findById(Long id) {
         return (Meeting) connector.getSession().get(Meeting.class, id);

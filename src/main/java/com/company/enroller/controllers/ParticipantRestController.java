@@ -17,19 +17,20 @@ public class ParticipantRestController {
 	@Autowired
 	ParticipantService participantService;
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ResponseEntity<?> getParticipants() {
-		Collection<Participant> participants = participantService.getAll();
-		return new ResponseEntity<Collection<Participant>>(participants, HttpStatus.OK);
-	}
+//	@RequestMapping(value = "", method = RequestMethod.GET)
+//	public ResponseEntity<?> getParticipants() {
+//		Collection<Participant> participants = participantService.getAll();
+//		return new ResponseEntity<Collection<Participant>>(participants, HttpStatus.OK);
+//	}
 
-//    @RequestMapping(value = "" , method = RequestMethod.GET)
-//    public ResponseEntity<?> getParticipantSorted(
-//            @RequestParam(value = "sortBy" , defaultValue = "login") String sortBy ,
-//            @RequestParam(value = "sortOrder" , defaultValue = "ASC") String sortOrder ) {
-//        Collection<Participant> participants = participantService.getAllSorted();
-//        return new ResponseEntity<Collection<Participant>>(participants, HttpStatus.OK);
-//    }
+    @RequestMapping(value = "" , method = RequestMethod.GET)
+    public ResponseEntity<?> getParticipantSorted(
+            @RequestParam(value = "sortBy" , defaultValue = "login") String sortBy ,
+            @RequestParam(value = "sortOrder" , defaultValue = "ASC") String sortOrder,
+            @RequestParam(value = "key" , defaultValue = "") String key) {
+        Collection<Participant> participants = participantService.getAll(sortBy, sortOrder, key);
+        return new ResponseEntity<Collection<Participant>>(participants, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getParticipant(@PathVariable("id") String login) {
@@ -44,7 +45,7 @@ public class ParticipantRestController {
     public ResponseEntity<?> registerParticipant(@RequestBody Participant participant) {
        Participant fooundparticipant = participantService.findByLogin(participant.getLogin());
        if (fooundparticipant != null) {
-           return new ResponseEntity("Already exists",HttpStatus.CONFLICT);
+           return new ResponseEntity("Unable to create. A participant with login " + participant.getLogin() + " already exist.", HttpStatus.CONFLICT);
        }
        participantService.add(participant);
        return new ResponseEntity<>(HttpStatus.CREATED);
@@ -59,12 +60,11 @@ public class ParticipantRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{login}" , method = RequestMethod.PUT)
-    public ResponseEntity<?> getParticipant(@PathVariable("login") String login , @RequestBody Participant participant) {
+    @RequestMapping(value = "/{id}" , method = RequestMethod.PUT)
+    public ResponseEntity<?> updateParticipant(@PathVariable("id") String login , @RequestBody Participant participant) {
         Participant fooundparticipant = participantService.findByLogin(login);
         if (fooundparticipant == null) {
             return new ResponseEntity("Doesnt Exists",HttpStatus.NOT_FOUND);}
-//        fooundparticipant.setPassword(participant.getPassword());
         participantService.update(participant);
         return new ResponseEntity<>(fooundparticipant,HttpStatus.OK);
     }
