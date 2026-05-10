@@ -65,6 +65,9 @@ public class ParticipantService {
     }
 
     public void update(Participant participant) {
+        String hashedPassword = passwordEncoder.encode(participant.getPassword());
+        participant.setPassword(hashedPassword);
+
         Transaction transaction = connector.getSession().beginTransaction();
         connector.getSession().merge(participant);
         transaction.commit();
