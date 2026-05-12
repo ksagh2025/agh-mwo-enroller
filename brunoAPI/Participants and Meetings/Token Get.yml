@@ -1,0 +1,22 @@
+info:
+  name: Token Get
+  type: http
+  seq: 25
+
+http:
+  method: POST
+  url: http://localhost:8080/tokens
+  body:
+    type: json
+    data: |-
+      {
+      "login": "userpass2",
+      "password": "test"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

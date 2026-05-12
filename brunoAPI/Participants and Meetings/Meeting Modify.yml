@@ -1,0 +1,28 @@
+info:
+  name: Meeting Modify
+  type: http
+  seq: 10
+
+http:
+  method: PUT
+  url: http://localhost:8080/meetings/:id
+  params:
+    - name: id
+      value: "7"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "id": 7,
+        "title": "Spotkanie robocze do skasowania - modyfikacja",
+        "description": "modyfikacja",
+        "date": "2025.05.12"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

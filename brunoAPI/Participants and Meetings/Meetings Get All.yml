@@ -1,0 +1,34 @@
+info:
+  name: Meetings Get All
+  type: http
+  seq: 10
+
+http:
+  method: GET
+  url: http://localhost:8080/meetings/?sortBy=id&sortOrder=DESC
+  params:
+    - name: searchTitle
+      value: spotkanie
+      type: query
+      disabled: true
+    - name: searchDescription
+      value: opis aaa
+      type: query
+      disabled: true
+    - name: sortBy
+      value: id
+      type: query
+    - name: sortOrder
+      value: ASC
+      type: query
+      disabled: true
+    - name: sortOrder
+      value: DESC
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

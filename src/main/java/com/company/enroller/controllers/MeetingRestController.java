@@ -1,6 +1,7 @@
 package com.company.enroller.controllers;
 import java.util.Collection;
 
+import com.company.enroller.dto.AddParticipantToMeetingRequest;
 import com.company.enroller.model.Meeting;
 import com.company.enroller.model.Participant;
 import com.company.enroller.persistence.MeetingService;
@@ -77,7 +78,7 @@ public class MeetingRestController {
     @RequestMapping(value = "/{id}/participants" , method = RequestMethod.POST)
     public ResponseEntity<?> addParticipant(
             @PathVariable("id") Long id,
-            @RequestBody Participant participant) {
+            @RequestBody AddParticipantToMeetingRequest participant) {
 
         Meeting foundMeeting = meetingService.findById(id);
         if (foundMeeting == null) {
@@ -85,12 +86,17 @@ public class MeetingRestController {
 
         Participant foundParticipant = participantService.findByLogin(participant.getLogin());
         if (foundParticipant == null) {
-            return new ResponseEntity("Participant Doesnt Exists",HttpStatus.NOT_FOUND);
+            return new ResponseEntity("Participant " + participant.getLogin() + " Doesnt Exists",HttpStatus.NOT_FOUND);
         }
 
-        foundMeeting.addParticipant(participant);
+        boolean isMeetingParticipant = foundMeeting.getParticipants().contains(foundParticipant);
+        if (isMeetingParticipant) {
+            return new ResponseEntity("Participant Already On Meetings List",HttpStatus.NOT_FOUND);
+        }
+
+        foundMeeting.addParticipant(foundParticipant);
         meetingService.update(foundMeeting);
-        return new ResponseEntity<>(foundMeeting,HttpStatus.OK);
+        return new ResponseEntity<>("User login: " + foundParticipant.getLogin() + " added to meeting id: " + foundMeeting.getId(),HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/participants/{login}" , method = RequestMethod.DELETE)

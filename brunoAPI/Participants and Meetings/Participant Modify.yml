@@ -1,0 +1,26 @@
+info:
+  name: Participant Modify
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: http://localhost:8080/participants/:id
+  params:
+    - name: id
+      value: testowy2219
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "login": "testowy2219",
+        "password": "testaaa"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

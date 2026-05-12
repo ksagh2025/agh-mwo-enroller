@@ -1,0 +1,24 @@
+info:
+  name: Meeting Add
+  type: http
+  seq: 14
+
+http:
+  method: POST
+  url: http://localhost:8080/meetings/
+  body:
+    type: json
+    data: |-
+      {
+        "id": 8,
+        "title": "Spotkanie robocze do skasowania",
+        "description": "omówienie kejsa",
+        "date": "2025.05.12"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

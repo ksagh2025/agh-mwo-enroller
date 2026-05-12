@@ -1,0 +1,26 @@
+opencollection: 1.0.0
+
+info:
+  name: Participants and Meetings
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215ZW5yb2xsZXJkZW1vIiwic3ViIjoidXNlcnBhc3MyIiwiaWF0IjoxNzc4NjIyMTYyLCJleHAiOjE3Nzg2MjU3NjIsInJvbGUiOiJwYXJ0aWNpcGFudCJ9.2GFhHIq3JVxgkkuHqjT2VmmOUjJ12R1XgY2WjRDwhng
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git
