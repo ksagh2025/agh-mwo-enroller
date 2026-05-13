@@ -8,7 +8,7 @@ http:
   url: http://localhost:8080/participants/:id
   params:
     - name: id
-      value: user555
+      value: test20250513-2
       type: path
   auth: inherit
 

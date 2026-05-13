@@ -20,7 +20,7 @@ http:
       type: query
       disabled: true
     - name: key
-      value: user1
+      value: "2025"
       type: query
       disabled: true
   auth: inherit

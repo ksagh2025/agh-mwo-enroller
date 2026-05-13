@@ -8,7 +8,7 @@ http:
   url: http://localhost:8080/meetings/:id/participants/:login
   params:
     - name: login
-      value: testowy2219
+      value: user2
       type: path
     - name: id
       value: "7"

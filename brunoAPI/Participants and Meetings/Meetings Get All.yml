@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:8080/meetings/?sortBy=id&sortOrder=DESC
+  url: http://localhost:8080/meetings/
   params:
     - name: searchTitle
       value: spotkanie
@@ -18,6 +18,7 @@ http:
     - name: sortBy
       value: id
       type: query
+      disabled: true
     - name: sortOrder
       value: ASC
       type: query
@@ -25,6 +26,7 @@ http:
     - name: sortOrder
       value: DESC
       type: query
+      disabled: true
   auth: inherit
 
 settings:

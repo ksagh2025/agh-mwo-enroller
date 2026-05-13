@@ -10,10 +10,9 @@ http:
     type: json
     data: |-
       {
-        "login": "testowy2219",
+        "login": "test20250513",
         "password": "test"
       }
-  auth: inherit
 
 settings:
   encodeUrl: true

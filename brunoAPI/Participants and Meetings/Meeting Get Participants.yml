@@ -8,7 +8,7 @@ http:
   url: http://localhost:8080/meetings/:id/participants
   params:
     - name: id
-      value: "5"
+      value: "7"
       type: path
   auth: inherit
 
